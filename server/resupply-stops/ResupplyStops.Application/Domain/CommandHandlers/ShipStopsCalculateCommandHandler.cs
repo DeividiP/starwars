@@ -1,5 +1,4 @@
 ﻿using ResupplyStops.Application.Domain.Interfaces;
-using ResupplyStops.Application.Domain.Model;
 using ResupplyStops.Application.Domain.Query;
 using System.Collections.Generic;
 using System.Linq;

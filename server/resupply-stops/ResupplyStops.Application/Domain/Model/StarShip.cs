@@ -7,7 +7,21 @@
         public string Consumables { get; set; }
         public int CalculateStops(int distance)
         {
-            return 74;
+            var mgltAutonomy = CalculateMGLTAutonomy();
+
+            return distance / mgltAutonomy;
+        }
+
+        private int CalculateMGLTAutonomy()
+        {
+            var consumablesInHours = ConvertConsumablesPeriodToHours();
+
+            return consumablesInHours * MGLT;
+        }
+
+        private int ConvertConsumablesPeriodToHours()
+        {
+            return 7 * 24;
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace ResupplyStops.Application.Domain.Model
+﻿using ResupplyStops.Application.Domain.Services;
+
+namespace ResupplyStops.Application.Domain.Model
 {
     public class StarShip
     {
@@ -21,7 +23,12 @@
 
         private int ConvertConsumablesPeriodToHours()
         {
-            return 7 * 24;
+            var weekConverter = new ConsumableWeekToHoursConvert();
+
+            if (weekConverter.CanConvert(Consumables))
+                return weekConverter.Convert(Consumables);
+
+            return 0;
         }
     }
 }

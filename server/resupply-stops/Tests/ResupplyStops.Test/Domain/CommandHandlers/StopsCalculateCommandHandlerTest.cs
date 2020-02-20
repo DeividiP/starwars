@@ -1,5 +1,7 @@
 ﻿using Moq;
 using ResupplyStops.Application.Domain.CommandHandlers;
+using ResupplyStops.Application.Domain.Interfaces;
+using ResupplyStops.Application.Domain.Model;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
@@ -9,7 +11,7 @@ namespace ResupplyStops.Test.Domain.CommandHandlers
     public class StopsCalculateCommandHandlerTest
     {
         readonly IStopsCalculateCommandHandler subject;
-        readonly IWSAPIProxy wsAPIProxyMock;
+        readonly Mock<IWSAPIProxy> wsAPIProxyMock;
 
         public StopsCalculateCommandHandlerTest()
         {
@@ -38,10 +40,10 @@ namespace ResupplyStops.Test.Domain.CommandHandlers
 
                 Name = shipName,
                 MGLT = mgltPerHour,
-                consumables = consumables
+                Consumables = consumables
             };
 
-            wsAPIProxyMock.Setup(_ => _.GetAllStarShips()).RetunrAysnc(new List<StarShip>() { ywing });
+            wsAPIProxyMock.Setup(_ => _.GetAllStarShipsAsync()).ReturnsAsync(new List<StarShip>() { ywing });
 
             var result = await subject.Handle(distance);
 

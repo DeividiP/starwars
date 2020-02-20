@@ -27,7 +27,6 @@ namespace ResupplyStops.Test.Domain.Services.ConsumablesConvertService
         [InlineData("2 months", 1440)]
         public void Convert_Should_Return_The_Properly_Quantity_of_Hours(string consumables, int expectedResult)
         {
-            _subject.CanConvert(consumables);
             var result = _subject.Convert(consumables);
 
             Assert.Equal(expectedResult, result);

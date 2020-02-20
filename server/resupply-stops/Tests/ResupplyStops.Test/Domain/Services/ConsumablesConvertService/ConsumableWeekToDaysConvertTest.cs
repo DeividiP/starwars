@@ -14,6 +14,7 @@ namespace ResupplyStops.Test.Domain.Services.ConsumablesConvertService
 
         [Theory]
         [InlineData("1 week")]
+        [InlineData("2 weeks")]
         public void CanConvert_Should_ReturnTrue_To_Properly_Periods(string consumables)
         {
             var result = _subject.CanConvert(consumables);
@@ -22,8 +23,9 @@ namespace ResupplyStops.Test.Domain.Services.ConsumablesConvertService
         }
 
         [Theory]
-        [InlineData("1 week", 7)]
-        public void Convert_Should_Return_The_Properly_Quantity_of_Days(string consumables, int expectedResult)
+        [InlineData("1 week", 168)]
+        [InlineData("1 weeks", 168)]
+        public void Convert_Should_Return_The_Properly_Quantity_of_Hours(string consumables, int expectedResult)
         {
             _subject.CanConvert(consumables);
             var result = _subject.Convert(consumables);

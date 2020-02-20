@@ -7,7 +7,7 @@ namespace ResupplyStops.Application.Domain.Services
         private const int hoursByDay = 24;
 
         private readonly List<string> validPeriodsToConvert 
-                    = new List<string> { "week" };
+                    = new List<string> { "week", "weeks" };
 
         public int PeriodsQuantityDays => 7;
         public int Quantity { get; private set; }

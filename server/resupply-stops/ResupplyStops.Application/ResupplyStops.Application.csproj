@@ -1,7 +1,23 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Application\AutoMapper\" />
+    <Folder Include="Application\Interfaces\" />
+    <Folder Include="Application\ViewModel\" />
+    <Folder Include="Application\Services\" />
+    <Folder Include="Domain\Model\" />
+    <Folder Include="Domain\Command\" />
+    <Folder Include="Domain\Interfaces\" />
+    <Folder Include="Domain\Validations\" />
+    <Folder Include="Infra\WSAPIProxy\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.2" />
+  </ItemGroup>
 
 </Project>

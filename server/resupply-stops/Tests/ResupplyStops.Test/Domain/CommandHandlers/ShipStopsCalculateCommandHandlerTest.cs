@@ -8,25 +8,15 @@ using Xunit;
 
 namespace ResupplyStops.Test.Domain.CommandHandlers
 {
-    public class StopsCalculateCommandHandlerTest
+    public class ShipStopsCalculateCommandHandlerTest
     {
-        readonly IStopsCalculateCommandHandler subject;
-        readonly Mock<IWSAPIProxy> wsAPIProxyMock;
+        readonly IShipStopsCalculateCommandHandler _subject;
+        readonly Mock<IWSAPIProxy> _wsAPIProxyMock;
 
-        public StopsCalculateCommandHandlerTest()
+        public ShipStopsCalculateCommandHandlerTest()
         {
-            wsAPIProxyMock = new Mock<IWSAPIProxy>(); 
-            subject = new StopsCalculateCommandHandler(wsAPIProxyMock.Object);
-        }
-
-        [Fact]
-        public async Task Calculate_Should_Return_Zero_When_Distance_Is_Zero()
-        {
-            int distance = 0;
-
-            var result = await subject.Handle(distance);
-
-            Assert.Equal(0, result);
+            _wsAPIProxyMock = new Mock<IWSAPIProxy>(); 
+            _subject = new ShipStopsCalculateCommandHandler(_wsAPIProxyMock.Object);
         }
 
         [Theory]
@@ -34,7 +24,6 @@ namespace ResupplyStops.Test.Domain.CommandHandlers
         public async Task Calculate_Should_Return_Properly_Stops_Based_On_Ships_Data_When_Distance_Is_1000000(string shipName, int mgltPerHour, string consumables, int expectedStops)
         {
             int distance = 1000000;
-
             var ywing = new StarShip
             {
 
@@ -43,11 +32,11 @@ namespace ResupplyStops.Test.Domain.CommandHandlers
                 Consumables = consumables
             };
 
-            wsAPIProxyMock.Setup(_ => _.GetAllStarShipsAsync()).ReturnsAsync(new List<StarShip>() { ywing });
+            _wsAPIProxyMock.Setup(_ => _.GetAllStarShips()).Returns(new List<StarShip>() { ywing });
 
-            var result = await subject.Handle(distance);
+            var result = await _subject.Handle(distance);
 
-            Assert.Equal(expectedStops, result);
+            Assert.Equal(expectedStops, result[0].Stops);
         }
     }
 }

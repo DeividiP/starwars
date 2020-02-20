@@ -28,6 +28,11 @@ namespace ResupplyStops.Application.Domain.Model
             if (weekConverter.CanConvert(Consumables))
                 return weekConverter.Convert(Consumables);
 
+            var monthConverter = new ConsumableMonthToHoursConvert();
+
+            if (monthConverter.CanConvert(Consumables))
+                return monthConverter.Convert(Consumables);
+
             return 0;
         }
     }

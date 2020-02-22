@@ -5,6 +5,6 @@ namespace ResupplyStops.Application.Domain.Interfaces
 {
     public interface IWSAPIProxy
     {
-        List<StarShip> GetAllStarShips();
+        List<IStarShip> GetAllStarShips();
     }
 }

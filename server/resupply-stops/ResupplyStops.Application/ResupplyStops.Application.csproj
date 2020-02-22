@@ -9,8 +9,6 @@
     <Folder Include="Application\Interfaces\" />
     <Folder Include="Application\ViewModel\" />
     <Folder Include="Application\Services\" />
-    <Folder Include="Domain\Command\" />
-    <Folder Include="Domain\Validations\" />
     <Folder Include="Infra\WSAPIProxy\" />
   </ItemGroup>
 

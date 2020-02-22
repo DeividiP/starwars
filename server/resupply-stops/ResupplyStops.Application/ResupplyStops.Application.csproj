@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Application\AutoMapper\" />
-    <Folder Include="Application\Interfaces\" />
-    <Folder Include="Application\ViewModel\" />
-    <Folder Include="Application\Services\" />
     <Folder Include="Infra\WSAPIProxy\" />
   </ItemGroup>
 

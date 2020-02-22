@@ -27,7 +27,7 @@ namespace ResupplyStops.Test.Domain.CommandHandlers
         {
             _wsAPIProxyMock.Setup(_ => _.GetAllStarShips()).Returns(new List<IStarShip>());
 
-            await _subject.Handle(new StarShipResupplyStopsCalculateCommand() { Distance = int.MaxValue });
+            await _subject.HandleAsync(new StarShipResupplyStopsCalculateCommand() { Distance = int.MaxValue });
 
             _wsAPIProxyMock.Verify(wsApi => wsApi.GetAllStarShips(), Times.Once);
         }
@@ -49,7 +49,7 @@ namespace ResupplyStops.Test.Domain.CommandHandlers
                                             starShip3Mock.Object
                                         });
 
-            await _subject.Handle(command);
+            await _subject.HandleAsync(command);
 
             starShip1Mock.Verify(s => s.CalculateStops(command.Distance), Times.Once);
             starShip2Mock.Verify(s => s.CalculateStops(command.Distance), Times.Once);
@@ -81,7 +81,7 @@ namespace ResupplyStops.Test.Domain.CommandHandlers
                                             starShip3Mock.Object
                                         });
 
-            var result = await _subject.Handle(command);
+            var result = await _subject.HandleAsync(command);
 
             Assert.IsType<List<ShipStopsCalculateQuery>>(result);
             Assert.Equal(mockedStarShip1Stops, result[0].Stops);
@@ -95,7 +95,7 @@ namespace ResupplyStops.Test.Domain.CommandHandlers
             var command = new StarShipResupplyStopsCalculateCommand() { Distance = -1 };
             var expectedExceptionMessage = "The distance must be greater than zero. (Parameter 'distance')";
 
-            var result = await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() => _subject.Handle(command));
+            var result = await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() => _subject.HandleAsync(command));
 
             Assert.Equal(expectedExceptionMessage, result.Message);
         }

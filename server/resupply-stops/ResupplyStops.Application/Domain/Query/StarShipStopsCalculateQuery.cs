@@ -2,7 +2,7 @@
 {
     public class ShipStopsCalculateQuery
     {
-        public string ShipName { get; set; }
+        public string Name { get; set; }
         public int Distance { get; set; }
         public int Stops { get; set; }
     }

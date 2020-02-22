@@ -17,7 +17,7 @@ namespace ResupplyStops.Application.Domain.CommandHandlers
             _iWSAPIProxy = iWSAPIProxy;
         }
 
-        public async Task<List<ShipStopsCalculateQuery>> Handle(StarShipResupplyStopsCalculateCommand command)
+        public async Task<List<ShipStopsCalculateQuery>> HandleAsync(StarShipResupplyStopsCalculateCommand command)
         {
             command.Validate();
 
@@ -26,7 +26,7 @@ namespace ResupplyStops.Application.Domain.CommandHandlers
             var shipStopsResult = starships.Select(s => new ShipStopsCalculateQuery
             {
                 Distance = command.Distance,
-                ShipName = s.Name,
+                Name = s.Name,
                 Stops = s.CalculateStops(command.Distance),
 
             }).ToList();

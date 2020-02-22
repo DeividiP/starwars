@@ -7,6 +7,6 @@ namespace ResupplyStops.Application.Domain.CommandHandlers
 {
     public interface IStarShipResupplyStopsCalculateCommandHandler
     {
-        Task<List<ShipStopsCalculateQuery>> Handle(StarShipResupplyStopsCalculateCommand command);
+        Task<List<ShipStopsCalculateQuery>> HandleAsync(StarShipResupplyStopsCalculateCommand command);
     }
 }

@@ -1,7 +1,7 @@
 ﻿using ResupplyStops.Application.Domain.Services;
 using Xunit;
 
-namespace ResupplyStops.Test.Domain.Services.ConsumablesConvertService
+namespace ResupplyStops.Test.Domain.Services
 {
     public class ConsumableMonthToDaysConvertTest
     {

@@ -89,14 +89,14 @@ namespace ResupplyStops.Test.Domain.CommandHandlers
         }
 
         [Fact]
-        public async Task Should_Return_ValidationError_When_Distance_Is_Less_Than_Zero()
+        public async Task Should_Thrown_ArgumentOutOfRangeException_When_Distance_Is_Less_Than_Zero()
         {
             var distance = -1;
-            var expectedExceptionMessage = "The distance must be greater than zero.";
+            var expectedExceptionMessage = "The distance must be greater than zero. (Parameter 'distance')";
 
             var result = await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() => _subject.Handle(distance));
 
-            Assert.Equal(result.Message, expectedExceptionMessage);
+            Assert.Equal(expectedExceptionMessage, result.Message);
         }
     }
 }

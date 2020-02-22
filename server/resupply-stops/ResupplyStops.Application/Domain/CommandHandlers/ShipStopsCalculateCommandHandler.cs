@@ -1,5 +1,6 @@
 ﻿using ResupplyStops.Application.Domain.Interfaces;
 using ResupplyStops.Application.Domain.Query;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,6 +18,8 @@ namespace ResupplyStops.Application.Domain.CommandHandlers
 
         public async Task<List<ShipStopsCalculateQuery>> Handle(int distance)
         {
+            ValidadeDistanceArgument(distance);
+
             var starships = _iWSAPIProxy.GetAllStarShips();
 
             var shipStopsResult = starships.Select(s => new ShipStopsCalculateQuery
@@ -28,6 +31,14 @@ namespace ResupplyStops.Application.Domain.CommandHandlers
             }).ToList();
 
             return await Task.FromResult(shipStopsResult);
+        }
+
+        private void ValidadeDistanceArgument(int distance)
+        {
+            if (distance < 0)
+            {
+                throw new ArgumentOutOfRangeException("distance","The distance must be greater than zero.");
+            }
         }
     }
 }

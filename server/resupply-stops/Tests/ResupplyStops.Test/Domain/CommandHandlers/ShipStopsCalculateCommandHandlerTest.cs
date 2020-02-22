@@ -3,6 +3,7 @@ using ResupplyStops.Application.Domain.CommandHandlers;
 using ResupplyStops.Application.Domain.Interfaces;
 using ResupplyStops.Application.Domain.Model;
 using ResupplyStops.Application.Domain.Query;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
@@ -85,6 +86,17 @@ namespace ResupplyStops.Test.Domain.CommandHandlers
             Assert.Equal(mockedStarShip1Stops, result[0].Stops);
             Assert.Equal(mockedStarShip2Stops, result[1].Stops);
             Assert.Equal(mockedStarShip3Stops, result[2].Stops);
+        }
+
+        [Fact]
+        public async Task Should_Return_ValidationError_When_Distance_Is_Less_Than_Zero()
+        {
+            var distance = -1;
+            var expectedExceptionMessage = "The distance must be greater than zero.";
+
+            var result = await Assert.ThrowsAsync<ArgumentOutOfRangeException>(() => _subject.Handle(distance));
+
+            Assert.Equal(result.Message, expectedExceptionMessage);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace ResupplyStops.Application.Domain.Services
             }
             catch (Exception)
             {
-                throw new InvalidOperationException($"Consumable was unable to parse, converter: {this.GetType().Name}, cosumable value: {consumable}");
+                throw new ArgumentException($"Consumable was unable to parse, converter: {this.GetType().Name}, cosumable value: {consumable}");
             }
         }
     }

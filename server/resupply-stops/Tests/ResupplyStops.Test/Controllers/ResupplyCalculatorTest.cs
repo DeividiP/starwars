@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using ResupplyStops.Application.Application.Interfaces;
 using ResupplyStops.Application.Application.ViewModel;
+using ResupplyStops.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
@@ -20,6 +22,7 @@ namespace ResupplyStops.Test.Controllers
             _subject = new ResupplyStopCalculatorController(_resupllyStopCalculatorServiceMock.Object);
         }
 
+        [Fact]
         public async Task Calculate_Should_Call_CalculateAsync_From_ResupplyStopCalculatorService()
         {
             var dummyDistance = 8;
@@ -33,6 +36,19 @@ namespace ResupplyStops.Test.Controllers
                 .Verify(s => s.CalculateAsync(dummyDistance), Times.Once);
             Assert.Equal(StatusCodes.Status200OK, ((ObjectResult)response).StatusCode);
             Assert.IsType<List<StarShipResupplyStops>>(((ObjectResult)response).Value);
+        }
+
+        [Fact]
+        public async Task Calculate_Should_Return_HTTP500_When_Internal_Error()
+        {
+            var dummyDistance = 8;
+            _resupllyStopCalculatorServiceMock
+                  .Setup(s => s.CalculateAsync(dummyDistance))
+                  .ThrowsAsync(new Exception());
+
+            var response = await _subject.CalculateAllStarShipsResupplyStopsAsync(dummyDistance);
+
+            Assert.Equal(StatusCodes.Status500InternalServerError, ((ObjectResult)response).StatusCode);
         }
     }
 }

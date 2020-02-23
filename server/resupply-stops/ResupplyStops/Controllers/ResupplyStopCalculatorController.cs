@@ -20,9 +20,16 @@ namespace ResupplyStops.Controllers
 
         public async Task<IActionResult> CalculateAllStarShipsResupplyStopsAsync(int distance)
         {
-            var resupllyStops = await _resupllyStopCalculatorService.CalculateAsync(distance);
+            try
+            {
+                var resupllyStops = await _resupllyStopCalculatorService.CalculateAsync(distance);
 
-            return Ok(resupllyStops);
+                return Ok(resupllyStops);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex);
+            }
         }
     }
 }

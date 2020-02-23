@@ -7,7 +7,7 @@ using Moq;
 using ResupplyStops.Application.Domain.Command;
 using Xunit;
 
-namespace ResupplyStops.Test.Application.Services
+namespace ResupplyStops.Application.Test.Application.Services
 {
     public class ResupllyStopCalculatorServiceTest
     {

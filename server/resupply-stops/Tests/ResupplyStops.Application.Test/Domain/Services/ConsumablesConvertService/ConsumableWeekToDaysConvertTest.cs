@@ -1,20 +1,20 @@
 ﻿using ResupplyStops.Application.Domain.Services;
 using Xunit;
 
-namespace ResupplyStops.Test.Domain.Services
+namespace ResupplyStops.Application.Test.Domain.Services
 {
-    public class ConsumableMonthToDaysConvertTest
+    public class ConsumableWeekToDaysConvertTest
     {
         private readonly IConsumableToHoursConvert _subject;
 
-        public ConsumableMonthToDaysConvertTest()
+        public ConsumableWeekToDaysConvertTest()
         {
-            _subject = new ConsumableMonthToHoursConvert();
+            _subject = new ConsumableWeekToHoursConvert();
         }
 
         [Theory]
-        [InlineData("1 month")]
-        [InlineData("2 months")]
+        [InlineData("1 week")]
+        [InlineData("2 weeks")]
         public void CanConvert_Should_ReturnTrue_To_Properly_Periods(string consumables)
         {
             var result = _subject.CanConvert(consumables);
@@ -23,8 +23,8 @@ namespace ResupplyStops.Test.Domain.Services
         }
 
         [Theory]
-        [InlineData("1 month", 720)]
-        [InlineData("2 months", 1440)]
+        [InlineData("1 week", 168)]
+        [InlineData("1 weeks", 168)]
         public void Convert_Should_Return_The_Properly_Quantity_of_Hours(string consumables, int expectedResult)
         {
             var result = _subject.Convert(consumables);

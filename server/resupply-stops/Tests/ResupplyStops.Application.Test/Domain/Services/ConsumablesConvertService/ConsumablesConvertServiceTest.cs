@@ -3,7 +3,7 @@ using ResupplyStops.Application.Domain.Services;
 using System.Collections.Generic;
 using Xunit;
 
-namespace ResupplyStops.Test.Domain.Services
+namespace ResupplyStops.Application.Test.Domain.Services
 {
     public class ConsumablesConvertServiceTest
     {

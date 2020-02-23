@@ -3,7 +3,7 @@ using ResupplyStops.Application.Domain.Services;
 using System.Collections.Generic;
 using Xunit;
 
-namespace ResupplyStops.Test.Domain.Model
+namespace ResupplyStops.Application.Test.Domain.Model
 {
     public class StarShipTest
     {

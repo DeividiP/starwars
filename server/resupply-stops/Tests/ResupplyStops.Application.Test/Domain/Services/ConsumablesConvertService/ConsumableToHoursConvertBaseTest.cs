@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace ResupplyStops.Test.Domain.Services
+namespace ResupplyStops.Application.Test.Domain.Services
 {
     public class ConsumableToHoursConvertBaseTest
     {

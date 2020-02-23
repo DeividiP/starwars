@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace ResupplyStops.Test.Domain.CommandHandlers
+namespace ResupplyStops.Application.Test.Domain.CommandHandlers
 {
     public class StarShipStopsCalculateCommandHandlerTest
     {

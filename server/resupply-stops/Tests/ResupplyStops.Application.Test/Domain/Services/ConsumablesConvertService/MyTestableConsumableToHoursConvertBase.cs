@@ -1,7 +1,7 @@
 ﻿using ResupplyStops.Application.Domain.Services;
 using System.Collections.Generic;
 
-namespace ResupplyStops.Test.Domain.Services
+namespace ResupplyStops.Application.Test.Domain.Services
 {
     public class MyTestableConsumableToHoursConvertBase : ConsumableToHoursConvertBase
     {

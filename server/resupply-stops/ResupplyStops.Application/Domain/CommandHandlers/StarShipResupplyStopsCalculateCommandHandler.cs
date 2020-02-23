@@ -21,7 +21,7 @@ namespace ResupplyStops.Application.Domain.CommandHandlers
         {
             command.Validate();
 
-            var starships = _iWSAPIProxy.GetAllStarShips();
+            var starships = await _iWSAPIProxy.GetAllStarShipsAsync();
 
             var shipStopsResult = starships.Select(s => new ShipStopsCalculateQuery
             {

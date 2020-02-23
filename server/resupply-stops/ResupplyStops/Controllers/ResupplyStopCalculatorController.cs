@@ -18,6 +18,7 @@ namespace ResupplyStops.Controllers
             _resupllyStopCalculatorService = resupllyStopCalculatorService;
         }
 
+        [HttpGet]
         public async Task<IActionResult> CalculateAllStarShipsResupplyStopsAsync(int distance)
         {
             try

@@ -16,7 +16,7 @@ namespace ResupplyStops.Application.Infra.WSAPIProxy
 
         public async Task<List<StarShip>> GetAllStarShipsAsync()
         {
-            var firstPage = await _wSApi.GetStarShipsAsync();
+            var firstPage = await _wSApi.GetStarShipsAsync(1);
             var result = firstPage.Result;
 
             result.AddRange(await GetNextStarShipPage(firstPage, result));

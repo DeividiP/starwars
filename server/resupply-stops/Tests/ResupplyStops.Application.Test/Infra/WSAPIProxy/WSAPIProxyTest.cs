@@ -45,7 +45,7 @@ namespace ResupplyStops.Application.Test.Infra.WSAPIProxy
                 {
                     Count = 2,
                     Next = nextPage.HasValue? $"/?page={nextPage.Value}" : null,
-                    Result = new List<StarShip>()
+                    Results = new List<StarShip>()
                     {
                         new StarShip
                         {

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
@@ -6,7 +6,12 @@
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>C:\dev\challenge\server\resupply-stops\ResupplyStops\ResupplyStops.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
       <PrivateAssets>all</PrivateAssets>
@@ -15,6 +20,9 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="5.0.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>

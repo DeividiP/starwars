@@ -9,7 +9,7 @@ namespace ResupplyStops.Application.Infra.WSAPIProxy
         public int Count { get; set; }
         public string Next { get; set; }
         public string Previous { get; set; }
-        public List<T> Result { get; set; }
+        public List<T> Results { get; set; }
 
         public int? NextPage => ExtractPageNumberFromUrl(Next);
 

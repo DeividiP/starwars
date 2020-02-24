@@ -18,6 +18,12 @@ namespace ResupplyStops.Controllers
             _resupllyStopCalculatorService = resupllyStopCalculatorService;
         }
 
+        /// <summary>
+        /// Retrieve all starships from WSAPI and calculates the number of resupply stops needed to travel a specified distance
+        /// </summary>
+        /// <param name="distance">distance used for calculate the number of resuply stops</param>
+        /// <response code="200">Retrive all starships stops successfully</response>        
+        /// <response code="500">There is an internal server error</response>
         [HttpGet]
         public async Task<IActionResult> CalculateAllStarShipsResupplyStopsAsync(int distance)
         {

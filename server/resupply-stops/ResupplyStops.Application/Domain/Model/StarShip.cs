@@ -4,6 +4,7 @@ namespace ResupplyStops.Application.Domain.Model
 {
     public class StarShip : IStarShip
     {
+        private int mgltValue;
         private readonly IConsumablesConvertService _consumablesConvertService;
         public StarShip() { }
         public StarShip(IConsumablesConvertService consumablesConvertService)
@@ -12,11 +13,14 @@ namespace ResupplyStops.Application.Domain.Model
         }
 
         public string Name { get; set; }
-        public int MGLT { get; set; }
+        public string MGLT { get; set; }
         public string Consumables { get; set; }
 
-        public int CalculateStops(int distance)
+        public virtual int? CalculateStops(int distance)
         {
+            if (!int.TryParse(MGLT, out mgltValue))
+                return null;
+
             var mgltAutonomy = CalculateMGLTAutonomy();
 
             return distance / mgltAutonomy;
@@ -25,7 +29,7 @@ namespace ResupplyStops.Application.Domain.Model
         {
             var consumablesInHours = _consumablesConvertService.ConvertToHours(Consumables);
 
-            return consumablesInHours * MGLT;
+            return consumablesInHours * mgltValue;
         }
     }
 }

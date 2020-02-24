@@ -10,6 +10,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using ResupplyStops.Application.Infra;
+using ResupplyStops.Configuration;
 
 namespace ResupplyStops
 {
@@ -26,6 +28,9 @@ namespace ResupplyStops
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddAutoMapperSetup();
+            services.AddDependencyInjectionSetup();
+            services.AddSwaggerSetup();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +50,12 @@ namespace ResupplyStops
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SW Challenge API V1");
             });
         }
     }

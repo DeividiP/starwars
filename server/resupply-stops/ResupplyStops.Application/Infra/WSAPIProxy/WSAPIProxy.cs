@@ -17,7 +17,7 @@ namespace ResupplyStops.Application.Infra.WSAPIProxy
         public async Task<List<StarShip>> GetAllStarShipsAsync()
         {
             var firstPage = await _wSApi.GetStarShipsAsync(1);
-            var result = firstPage.Result;
+            var result = firstPage.Results;
 
             result.AddRange(await GetNextStarShipPage(firstPage, result));
 
@@ -30,7 +30,7 @@ namespace ResupplyStops.Application.Infra.WSAPIProxy
                 return new List<StarShip>();
 
             var nextPage = await _wSApi.GetStarShipsAsync(currentPage.NextPage);
-            cumulatedResult.AddRange(nextPage.Result);
+            cumulatedResult.AddRange(nextPage.Results);
 
             return await GetNextStarShipPage(nextPage, cumulatedResult);
         }

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using ResupplyStops.Application.Application.Interfaces;
 
 namespace ResupplyStops.Controllers
@@ -10,11 +11,14 @@ namespace ResupplyStops.Controllers
     [ApiController]
     public class ResupplyStopCalculatorController : ControllerBase
     {
+        private readonly ILogger<ResupplyStopCalculatorController> _logger;
         private readonly IResupllyStopCalculatorService _resupllyStopCalculatorService;
 
         public ResupplyStopCalculatorController(
-            IResupllyStopCalculatorService resupllyStopCalculatorService)
+            IResupllyStopCalculatorService resupllyStopCalculatorService,
+            ILogger<ResupplyStopCalculatorController> logger)
         {
+            _logger = logger;
             _resupllyStopCalculatorService = resupllyStopCalculatorService;
         }
 
@@ -27,14 +31,17 @@ namespace ResupplyStops.Controllers
         [HttpGet]
         public async Task<IActionResult> CalculateAllStarShipsResupplyStopsAsync(int distance)
         {
+            _logger.LogInformation($"Initiaize CalculateAllStarShipsResupplyStopsAsync", distance);
             try
             {
                 var resupllyStops = await _resupllyStopCalculatorService.CalculateAsync(distance);
+                _logger.LogInformation($"Finish successfully CalculateAllStarShipsResupplyStopsAsync", resupllyStops);
 
                 return Ok(resupllyStops);
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, "Erro CalculateAllStarShipsResupplyStopsAsync", distance);
                 return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
         }

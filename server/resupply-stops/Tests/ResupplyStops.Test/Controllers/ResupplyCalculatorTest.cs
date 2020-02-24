@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Moq;
 using ResupplyStops.Application.Application.Interfaces;
 using ResupplyStops.Application.Application.ViewModel;
@@ -14,11 +15,13 @@ namespace ResupplyStops.Test.Controllers
     {
         private readonly ResupplyStopCalculatorController _subject;
         private readonly Mock<IResupllyStopCalculatorService> _resupllyStopCalculatorServiceMock;
+        private readonly Mock<ILogger<ResupplyStopCalculatorController>> _logger;
 
         public ResupplyCalculatorTest()
         {
             _resupllyStopCalculatorServiceMock = new Mock<IResupllyStopCalculatorService>();
-            _subject = new ResupplyStopCalculatorController(_resupllyStopCalculatorServiceMock.Object);
+            _logger = new Mock<ILogger<ResupplyStopCalculatorController>>();
+            _subject = new ResupplyStopCalculatorController(_resupllyStopCalculatorServiceMock.Object, _logger.Object);
         }
 
         [Fact]

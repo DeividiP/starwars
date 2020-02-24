@@ -1,5 +1,6 @@
 ﻿using Moq;
 using ResupplyStops.Application.Domain.Services;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -32,20 +33,28 @@ namespace ResupplyStops.Application.Test.Domain.Services
             var consumableDummyValue = "dummy consumable";
             SetupConvertersToCannotConvert();
 
-            _subject.ConvertToHours(consumableDummyValue);
+            try
+            {
+                _subject.ConvertToHours(consumableDummyValue);
+            }
+            catch 
+            {
 
+            }
             _converter1.Verify(c => c.CanConvert(consumableDummyValue));
             _converter2.Verify(c => c.CanConvert(consumableDummyValue));
         }
 
         [Fact]
-        public void ConvertToHours_When_Any_Convert_Match_Should_Return_Zero()
+        public void ConvertToHours_When_Any_Convert_Match_Should_Throws_InvalidOperationExpection()
         {
+            var consumables = "dummy consumable";
             SetupConvertersToCannotConvert();
+            var expectedExceptionMessage = $"Consumable convert was not found to: {consumables}";
 
-            var result = _subject.ConvertToHours("dummy consumable");
-
-            Assert.Equal(0, result);
+            var resultException = Assert.Throws<InvalidOperationException>(() => _subject.ConvertToHours(consumables));
+            
+            Assert.Equal(expectedExceptionMessage, resultException.Message);
         }
 
         [Fact]

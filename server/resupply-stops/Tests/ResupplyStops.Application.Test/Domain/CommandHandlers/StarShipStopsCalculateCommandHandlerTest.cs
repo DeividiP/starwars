@@ -16,16 +16,16 @@ namespace ResupplyStops.Application.Test.Domain.CommandHandlers
     {
         readonly IStarShipResupplyStopsCalculateCommandHandler _subject;
         readonly Mock<IWSAPIProxy> _wsAPIProxyMock;
-        readonly Mock<IConsumablesConvertService> _consumablesConvertService;
+        readonly Mock<IResupplyStopsCalculatorService> _resupplyStopsCalculatorService;
 
         public StarShipStopsCalculateCommandHandlerTest()
         {
             _wsAPIProxyMock = new Mock<IWSAPIProxy>();
-            _consumablesConvertService = new Mock<IConsumablesConvertService>();
+            _resupplyStopsCalculatorService = new Mock<IResupplyStopsCalculatorService>();
 
             _subject = new StarShipResupplyStopsCalculateCommandHandler(
-                _wsAPIProxyMock.Object, 
-                _consumablesConvertService.Object);
+                _wsAPIProxyMock.Object,
+                _resupplyStopsCalculatorService.Object);
         }
 
         [Fact]
@@ -47,6 +47,10 @@ namespace ResupplyStops.Application.Test.Domain.CommandHandlers
             var starShip2Mock = new Mock<StarShip>();
             var starShip3Mock = new Mock<StarShip>();
 
+            _resupplyStopsCalculatorService.Setup(s => s.CalculateStopsAsync(starShip1Mock.Object, command.Distance));
+            _resupplyStopsCalculatorService.Setup(s => s.CalculateStopsAsync(starShip1Mock.Object, command.Distance));
+            _resupplyStopsCalculatorService.Setup(s => s.CalculateStopsAsync(starShip3Mock.Object, command.Distance));
+
             _wsAPIProxyMock.Setup(_ => _.GetAllStarShipsAsync())
                             .ReturnsAsync(new List<StarShip>()
                                         {
@@ -57,9 +61,9 @@ namespace ResupplyStops.Application.Test.Domain.CommandHandlers
 
             await _subject.HandleAsync(command);
 
-            starShip1Mock.Verify(s => s.CalculateStops(command.Distance, _consumablesConvertService.Object), Times.Once);
-            starShip2Mock.Verify(s => s.CalculateStops(command.Distance, _consumablesConvertService.Object), Times.Once);
-            starShip3Mock.Verify(s => s.CalculateStops(command.Distance, _consumablesConvertService.Object), Times.Once);
+            _resupplyStopsCalculatorService.Verify(s => s.CalculateStopsAsync(starShip1Mock.Object, command.Distance), Times.Once);
+            _resupplyStopsCalculatorService.Verify(s => s.CalculateStopsAsync(starShip2Mock.Object, command.Distance), Times.Once);
+            _resupplyStopsCalculatorService.Verify(s => s.CalculateStopsAsync(starShip3Mock.Object, command.Distance), Times.Once);
         }
 
         [Fact]
@@ -71,13 +75,16 @@ namespace ResupplyStops.Application.Test.Domain.CommandHandlers
             var mockedStarShip3Stops = 3;
 
             var starShip1Mock = new Mock<StarShip>();
-            starShip1Mock.Setup(s => s.CalculateStops(command.Distance, _consumablesConvertService.Object)).Returns(mockedStarShip1Stops);
+            _resupplyStopsCalculatorService.Setup(s => s.CalculateStopsAsync(starShip1Mock.Object, command.Distance))
+                                                        .ReturnsAsync(mockedStarShip1Stops);
 
             var starShip2Mock = new Mock<StarShip>();
-            starShip2Mock.Setup(s => s.CalculateStops(command.Distance, _consumablesConvertService.Object)).Returns(mockedStarShip2Stops);
+            _resupplyStopsCalculatorService.Setup(s => s.CalculateStopsAsync(starShip2Mock.Object, command.Distance))
+                                                        .ReturnsAsync(mockedStarShip2Stops);
 
             var starShip3Mock = new Mock<StarShip>();
-            starShip3Mock.Setup(s => s.CalculateStops(command.Distance, _consumablesConvertService.Object)).Returns(mockedStarShip3Stops);
+            _resupplyStopsCalculatorService.Setup(s => s.CalculateStopsAsync(starShip3Mock.Object, command.Distance))
+                                                        .ReturnsAsync(mockedStarShip3Stops);
 
             _wsAPIProxyMock.Setup(_ => _.GetAllStarShipsAsync())
                             .ReturnsAsync(new List<StarShip>()

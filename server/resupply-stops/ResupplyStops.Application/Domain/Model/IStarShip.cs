@@ -7,7 +7,5 @@ namespace ResupplyStops.Application.Domain.Model
         string Name { get; set; }
         string MGLT { get; set; }
         string Consumables { get; set; }
-
-        int? CalculateStops(int distance, IConsumablesConvertService consumablesConvertService);
     }
 }

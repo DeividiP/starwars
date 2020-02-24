@@ -42,7 +42,6 @@ namespace ResupplyStops.Application.Infra
                         new JsonSerializerSettings
                         {
                             ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
                         })
                 });
 

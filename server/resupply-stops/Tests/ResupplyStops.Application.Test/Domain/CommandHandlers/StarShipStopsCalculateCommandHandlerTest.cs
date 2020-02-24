@@ -25,7 +25,7 @@ namespace ResupplyStops.Application.Test.Domain.CommandHandlers
         [Fact]
         public async Task Should_Call_IWSAPIProxy_GetAllStarShips_Method()
         {
-            _wsAPIProxyMock.Setup(_ => _.GetAllStarShipsAsync()).ReturnsAsync(new List<IStarShip>());
+            _wsAPIProxyMock.Setup(_ => _.GetAllStarShipsAsync()).ReturnsAsync(new List<StarShip>());
 
             await _subject.HandleAsync(new StarShipResupplyStopsCalculateCommand() { Distance = int.MaxValue });
 
@@ -37,12 +37,12 @@ namespace ResupplyStops.Application.Test.Domain.CommandHandlers
         {
             var command = new StarShipResupplyStopsCalculateCommand() { Distance = 99 };
 
-            var starShip1Mock = new Mock<IStarShip>();
-            var starShip2Mock = new Mock<IStarShip>();
-            var starShip3Mock = new Mock<IStarShip>();
+            var starShip1Mock = new Mock<StarShip>();
+            var starShip2Mock = new Mock<StarShip>();
+            var starShip3Mock = new Mock<StarShip>();
 
             _wsAPIProxyMock.Setup(_ => _.GetAllStarShipsAsync())
-                            .ReturnsAsync(new List<IStarShip>()
+                            .ReturnsAsync(new List<StarShip>()
                                         {
                                             starShip1Mock.Object,
                                             starShip2Mock.Object,
@@ -64,17 +64,17 @@ namespace ResupplyStops.Application.Test.Domain.CommandHandlers
             var mockedStarShip2Stops = 2;
             var mockedStarShip3Stops = 3;
 
-            var starShip1Mock = new Mock<IStarShip>();
+            var starShip1Mock = new Mock<StarShip>();
             starShip1Mock.Setup(s => s.CalculateStops(command.Distance)).Returns(mockedStarShip1Stops);
 
-            var starShip2Mock = new Mock<IStarShip>();
+            var starShip2Mock = new Mock<StarShip>();
             starShip2Mock.Setup(s => s.CalculateStops(command.Distance)).Returns(mockedStarShip2Stops);
 
-            var starShip3Mock = new Mock<IStarShip>();
+            var starShip3Mock = new Mock<StarShip>();
             starShip3Mock.Setup(s => s.CalculateStops(command.Distance)).Returns(mockedStarShip3Stops);
 
             _wsAPIProxyMock.Setup(_ => _.GetAllStarShipsAsync())
-                            .ReturnsAsync(new List<IStarShip>()
+                            .ReturnsAsync(new List<StarShip>()
                                         {
                                             starShip1Mock.Object,
                                             starShip2Mock.Object,

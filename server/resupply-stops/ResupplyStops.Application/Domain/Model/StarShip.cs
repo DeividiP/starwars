@@ -5,7 +5,7 @@ namespace ResupplyStops.Application.Domain.Model
     public class StarShip : IStarShip
     {
         private readonly IConsumablesConvertService _consumablesConvertService;
-
+        public StarShip() { }
         public StarShip(IConsumablesConvertService consumablesConvertService)
         {
             _consumablesConvertService = consumablesConvertService;

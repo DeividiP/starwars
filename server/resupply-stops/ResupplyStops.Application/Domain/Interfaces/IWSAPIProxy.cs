@@ -6,6 +6,6 @@ namespace ResupplyStops.Application.Domain.Interfaces
 {
     public interface IWSAPIProxy
     {
-        Task<List<IStarShip>> GetAllStarShipsAsync();
+        Task<List<StarShip>> GetAllStarShipsAsync();
     }
 }

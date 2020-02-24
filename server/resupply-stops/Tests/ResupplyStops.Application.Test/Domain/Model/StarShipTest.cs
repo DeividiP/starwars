@@ -29,14 +29,14 @@ namespace ResupplyStops.Application.Test.Domain.Model
         {
             int distance = 1000000;
 
-            _subject = new StarShip(_consumablesConvertService)
+            _subject = new StarShip()
             {
                 Name = shipName,
                 MGLT = mgltPerHour,
                 Consumables = consumables
             };
 
-            var result = _subject.CalculateStops(distance);
+            var result = _subject.CalculateStops(distance, _consumablesConvertService);
 
             Assert.Equal(expectedStops, result);
         }
@@ -46,14 +46,14 @@ namespace ResupplyStops.Application.Test.Domain.Model
         {
             int distance = 1000000;
 
-            _subject = new StarShip(_consumablesConvertService)
+            _subject = new StarShip()
             {
                 Name = "ship name",
                 MGLT = "unknown",
                 Consumables = "1 Period"
             };
 
-            var result = _subject.CalculateStops(distance);
+            var result = _subject.CalculateStops(distance, _consumablesConvertService);
 
             Assert.Null(result);
         }

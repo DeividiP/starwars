@@ -1,4 +1,6 @@
-﻿namespace ResupplyStops.Application.Domain.Model
+﻿using ResupplyStops.Application.Domain.Services;
+
+namespace ResupplyStops.Application.Domain.Model
 {
     public interface IStarShip
     {
@@ -6,6 +8,6 @@
         string MGLT { get; set; }
         string Consumables { get; set; }
 
-        int? CalculateStops(int distance);
+        int? CalculateStops(int distance, IConsumablesConvertService consumablesConvertService);
     }
 }

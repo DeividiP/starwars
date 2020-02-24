@@ -4,6 +4,7 @@ using ResupplyStops.Application.Domain.CommandHandlers;
 using ResupplyStops.Application.Domain.Interfaces;
 using ResupplyStops.Application.Domain.Model;
 using ResupplyStops.Application.Domain.Query;
+using ResupplyStops.Application.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,11 +16,16 @@ namespace ResupplyStops.Application.Test.Domain.CommandHandlers
     {
         readonly IStarShipResupplyStopsCalculateCommandHandler _subject;
         readonly Mock<IWSAPIProxy> _wsAPIProxyMock;
+        readonly Mock<IConsumablesConvertService> _consumablesConvertService;
 
         public StarShipStopsCalculateCommandHandlerTest()
         {
-            _wsAPIProxyMock = new Mock<IWSAPIProxy>(); 
-            _subject = new StarShipResupplyStopsCalculateCommandHandler(_wsAPIProxyMock.Object);
+            _wsAPIProxyMock = new Mock<IWSAPIProxy>();
+            _consumablesConvertService = new Mock<IConsumablesConvertService>();
+
+            _subject = new StarShipResupplyStopsCalculateCommandHandler(
+                _wsAPIProxyMock.Object, 
+                _consumablesConvertService.Object);
         }
 
         [Fact]
@@ -51,9 +57,9 @@ namespace ResupplyStops.Application.Test.Domain.CommandHandlers
 
             await _subject.HandleAsync(command);
 
-            starShip1Mock.Verify(s => s.CalculateStops(command.Distance), Times.Once);
-            starShip2Mock.Verify(s => s.CalculateStops(command.Distance), Times.Once);
-            starShip3Mock.Verify(s => s.CalculateStops(command.Distance), Times.Once);
+            starShip1Mock.Verify(s => s.CalculateStops(command.Distance, _consumablesConvertService.Object), Times.Once);
+            starShip2Mock.Verify(s => s.CalculateStops(command.Distance, _consumablesConvertService.Object), Times.Once);
+            starShip3Mock.Verify(s => s.CalculateStops(command.Distance, _consumablesConvertService.Object), Times.Once);
         }
 
         [Fact]
@@ -65,13 +71,13 @@ namespace ResupplyStops.Application.Test.Domain.CommandHandlers
             var mockedStarShip3Stops = 3;
 
             var starShip1Mock = new Mock<StarShip>();
-            starShip1Mock.Setup(s => s.CalculateStops(command.Distance)).Returns(mockedStarShip1Stops);
+            starShip1Mock.Setup(s => s.CalculateStops(command.Distance, _consumablesConvertService.Object)).Returns(mockedStarShip1Stops);
 
             var starShip2Mock = new Mock<StarShip>();
-            starShip2Mock.Setup(s => s.CalculateStops(command.Distance)).Returns(mockedStarShip2Stops);
+            starShip2Mock.Setup(s => s.CalculateStops(command.Distance, _consumablesConvertService.Object)).Returns(mockedStarShip2Stops);
 
             var starShip3Mock = new Mock<StarShip>();
-            starShip3Mock.Setup(s => s.CalculateStops(command.Distance)).Returns(mockedStarShip3Stops);
+            starShip3Mock.Setup(s => s.CalculateStops(command.Distance, _consumablesConvertService.Object)).Returns(mockedStarShip3Stops);
 
             _wsAPIProxyMock.Setup(_ => _.GetAllStarShipsAsync())
                             .ReturnsAsync(new List<StarShip>()

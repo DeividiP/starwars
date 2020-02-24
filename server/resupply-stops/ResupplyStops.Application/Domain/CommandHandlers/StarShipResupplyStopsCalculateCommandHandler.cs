@@ -1,6 +1,7 @@
 ﻿using ResupplyStops.Application.Domain.Command;
 using ResupplyStops.Application.Domain.Interfaces;
 using ResupplyStops.Application.Domain.Query;
+using ResupplyStops.Application.Domain.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,14 @@ namespace ResupplyStops.Application.Domain.CommandHandlers
     public class StarShipResupplyStopsCalculateCommandHandler : IStarShipResupplyStopsCalculateCommandHandler
     {
         private readonly IWSAPIProxy _iWSAPIProxy;
+        private readonly IConsumablesConvertService _consumablesConvertService;
 
-        public StarShipResupplyStopsCalculateCommandHandler(IWSAPIProxy iWSAPIProxy)
+        public StarShipResupplyStopsCalculateCommandHandler(
+            IWSAPIProxy iWSAPIProxy,
+            IConsumablesConvertService consumablesConvertService)
         {
             _iWSAPIProxy = iWSAPIProxy;
+            _consumablesConvertService = consumablesConvertService;
         }
 
         public async Task<List<ShipStopsCalculateQuery>> HandleAsync(StarShipResupplyStopsCalculateCommand command)
@@ -27,7 +32,7 @@ namespace ResupplyStops.Application.Domain.CommandHandlers
             {
                 Distance = command.Distance,
                 Name = s.Name,
-                Stops = s.CalculateStops(command.Distance),
+                Stops = s.CalculateStops(command.Distance, _consumablesConvertService),
 
             }).ToList();
 

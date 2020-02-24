@@ -29,6 +29,7 @@ namespace ResupplyStops.Application.Infra
             services.AddScoped<IConsumableToHoursConvert, ConsumableMonthToHoursConvert>();
             services.AddScoped<IConsumableToHoursConvert, ConsumableWeekToHoursConvert>();
             services.AddScoped<IConsumableToHoursConvert, ConsumableYearToHoursConvert>();
+            services.AddScoped<IConsumableToHoursConvert, ConsumableDayToHoursConvert>();
             services.AddTransient<IList<IConsumableToHoursConvert>>(p => p.GetServices<IConsumableToHoursConvert>().ToList());
 
             //Infra

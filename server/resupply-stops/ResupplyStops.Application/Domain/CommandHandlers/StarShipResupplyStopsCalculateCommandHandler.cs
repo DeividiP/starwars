@@ -2,7 +2,6 @@
 using ResupplyStops.Application.Domain.Interfaces;
 using ResupplyStops.Application.Domain.Query;
 using ResupplyStops.Application.Domain.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,7 +35,7 @@ namespace ResupplyStops.Application.Domain.CommandHandlers
 
             }).ToList();
 
-            return await Task.FromResult(shipStopsResult);
+            return shipStopsResult;
         }
     }
 }

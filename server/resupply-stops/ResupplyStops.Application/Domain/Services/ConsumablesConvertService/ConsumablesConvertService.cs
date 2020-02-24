@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System;
 
 namespace ResupplyStops.Application.Domain.Services
 {
@@ -19,7 +20,7 @@ namespace ResupplyStops.Application.Domain.Services
                     return converter.Convert(consumables);
             }
 
-            return 0;
+            throw new InvalidOperationException($"Consumable convert was not found to: {consumables}");
         }
     }
 }

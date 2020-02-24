@@ -5,7 +5,6 @@ using ResupplyStops.Application.Application.Interfaces;
 using ResupplyStops.Application.Application.ViewModel;
 using ResupplyStops.Controllers;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -28,14 +27,14 @@ namespace ResupplyStops.Test.Controllers
             var dummyDistance = 8;
             _resupllyStopCalculatorServiceMock
                   .Setup(s => s.CalculateAsync(dummyDistance))
-                  .ReturnsAsync(new List<StarShipResupplyStops>());
+                  .ReturnsAsync(new StarShipResupplyStopsList());
 
             var response = await _subject.CalculateAllStarShipsResupplyStopsAsync(dummyDistance);
 
             _resupllyStopCalculatorServiceMock
                 .Verify(s => s.CalculateAsync(dummyDistance), Times.Once);
             Assert.Equal(StatusCodes.Status200OK, ((ObjectResult)response).StatusCode);
-            Assert.IsType<List<StarShipResupplyStops>>(((ObjectResult)response).Value);
+            Assert.IsType<StarShipResupplyStopsList>(((ObjectResult)response).Value);
         }
 
         [Fact]

@@ -3,7 +3,6 @@
     public class StarShipResupplyStops
     {
         public string Name { get; set; }
-        public int Distance { get; set; }
-        public int Stops { get; set; }
+        public int? Stops { get; set; }
     }
 }

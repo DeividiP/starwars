@@ -36,8 +36,6 @@ namespace ResupplyStops.Application.Infra
             services.AddScoped<IWSAPIProxy, InfraWSAPIProxy.WSAPIProxy>();
             services.AddScoped(factory => {
 
-                //factory.GetService<ICo>
-
                 var wsapiClient = RestService.For<IWSApi>("https://swapi.co/api", new RefitSettings
                 {
                     ContentSerializer = new JsonContentSerializer(

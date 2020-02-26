@@ -25,6 +25,7 @@ namespace ResupplyStops.Application.Infra
             services.AddScoped<IStarShipResupplyStopsCalculateCommandHandler, StarShipResupplyStopsCalculateCommandHandler>();
 
             //Domain Services
+            services.AddScoped<IResupplyStopsCalculatorService, ResupplyStopsCalculatorService>();
             services.AddScoped<IConsumablesConvertService, ConsumablesConvertService>();
             services.AddScoped<IConsumableToHoursConvert, ConsumableMonthToHoursConvert>();
             services.AddScoped<IConsumableToHoursConvert, ConsumableWeekToHoursConvert>();
@@ -42,7 +43,8 @@ namespace ResupplyStops.Application.Infra
                         new JsonSerializerSettings
                         {
                             ContractResolver = new CamelCasePropertyNamesContractResolver(),
-                        })
+                        }),
+                    
                 });
 
                 return wsapiClient;

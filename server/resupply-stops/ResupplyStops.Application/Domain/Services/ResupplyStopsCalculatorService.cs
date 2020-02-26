@@ -25,8 +25,6 @@ namespace ResupplyStops.Application.Domain.Services
                 return null;
 
             var mgltAutonomy = CalculateMGLTAutonomy(starShip);
-            if (mgltAutonomy == 0)
-                return null;
 
             return distance / mgltAutonomy;
         }

@@ -33,7 +33,7 @@ namespace ResupplyStops.Controllers
         [HttpGet]
         public async Task<IActionResult> CalculateAllStarShipsResupplyStopsAsync(int distance)
         {
-            _logger.LogInformation($"Initiaize CalculateAllStarShipsResupplyStopsAsync", distance);
+            _logger.LogInformation($"Initialize CalculateAllStarShipsResupplyStopsAsync", distance);
             try
             {
                 var resupllyStops = await _resupllyStopCalculatorService.CalculateAsync(distance);
@@ -43,7 +43,7 @@ namespace ResupplyStops.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro CalculateAllStarShipsResupplyStopsAsync", distance);
+                _logger.LogError(ex, "Error CalculateAllStarShipsResupplyStopsAsync", distance);
                 return StatusCode(StatusCodes.Status500InternalServerError, ex);
             }
         }

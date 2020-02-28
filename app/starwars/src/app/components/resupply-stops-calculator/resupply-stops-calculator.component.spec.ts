@@ -8,7 +8,7 @@ import { MaterialModule } from 'src/app/material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
 
-fdescribe('ResupplyStopsCalculatorComponent', () => {
+describe('ResupplyStopsCalculatorComponent', () => {
   let component: ResupplyStopsCalculatorComponent;
   let fixture: ComponentFixture<ResupplyStopsCalculatorComponent>;
 
@@ -331,11 +331,11 @@ fdescribe('ResupplyStopsCalculatorComponent', () => {
     fixture.detectChanges();
   }
 
-  function getSpinner(): DebugElement{
+  function getSpinner(): DebugElement {
     return  fixture.debugElement.query(By.css('.spinner'));
   }
 
-  function getCalculateButton(): DebugElement{
+  function getCalculateButton(): DebugElement {
     return  fixture.debugElement.query(By.css('.calculate-button'));
   }
 });

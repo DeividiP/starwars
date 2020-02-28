@@ -1,0 +1,47 @@
+<div>
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport="true" attr.role="navigation" mode="side">
+      <mat-toolbar color="primary">Menu</mat-toolbar>
+      <mat-nav-list>
+        <a mat-list-item 
+          routerLink="/home" 
+          [class.active]="router.isActive('/home')"
+        >
+        About
+        </a>
+        <a mat-list-item 
+          routerLink="/resupply-stops-calculator" 
+          [class.active]="router.isActive('/resupply-stops-calculator')"
+        >
+        Resupply Stops Calculator
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+        <mat-toolbar-row>
+          <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+            <mat-icon>menu</mat-icon>
+          </button>
+          <img src="assets/images/logo_square.png" alt="star wars" width="84px" />
+          <span>Challenge</span>
+          <span class="spacer"></span>
+        </mat-toolbar-row>
+      </mat-toolbar>
+      <div class="body">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+
+
+
+
+
+
+
+
+
+
+

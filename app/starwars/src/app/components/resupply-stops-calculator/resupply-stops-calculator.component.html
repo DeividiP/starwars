@@ -1,0 +1,42 @@
+<div style="padding: 10px;">
+  <form [formGroup]="formGroup">
+    <mat-card>
+      <mat-card-title>Resupply Stops Calculator</mat-card-title>
+      <mat-card-content>
+        <mat-form-field appearance="fill">
+            <mat-label>Distance</mat-label>
+            <input
+              class="distance-input"
+              formControlName="distance"
+              appearance="outline"
+              matInput 
+              type="number"
+              autocomplete="off"
+              placeholder="Distance">
+        </mat-form-field>
+        <button class="calculate-button" 
+          mat-button 
+          color="secondary" 
+          (click)="calculate()"
+          [disabled]="isCalculating" >
+         
+          <div class="button-content" fxLayout="row" fxFlexAlign="end end" fxLayoutGap="10px">
+            <span fxFlex>Calculate</span>
+            <div *ngIf="isCalculating" class="spinner" fxFlex >
+              <mat-spinner diameter="20" >
+              </mat-spinner>
+            </div>
+          </div>
+        </button>
+        <mat-list>
+          <h3 *ngIf="starshipStopResult?.results" mat-subheader>Results ( {{starshipStopResult?.results?.length}} )</h3>
+          <mat-list-item *ngFor="let result of starshipStopResult?.results">
+            <mat-icon mat-list-icon>battery_charging_full</mat-icon>
+            <h4 mat-line>{{ result.name }}</h4>
+            <p mat-line> {{ result.stops != null? result.stops: 'unknown' }} stop(s)  </p>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</div>

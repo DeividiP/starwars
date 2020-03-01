@@ -6,7 +6,6 @@ using Microsoft.Extensions.Hosting;
 using ResupplyStops.Application.Infra;
 using ResupplyStops.Application.Infra.WSAPIProxy;
 using ResupplyStops.Configuration;
-using System.IO;
 
 namespace ResupplyStops
 {
@@ -45,7 +44,7 @@ namespace ResupplyStops
 
             app.UseAuthorization();
 
-            app.UseCors(builder => builder.WithOrigins("http://localhost:4200"));
+            app.UseCors(builder => builder.WithOrigins("http://localhost"));
 
             app.UseEndpoints(endpoints =>
             {

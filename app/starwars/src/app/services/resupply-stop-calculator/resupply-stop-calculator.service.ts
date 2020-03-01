@@ -13,7 +13,7 @@ export class ResupplyStopCalculatorService {
 
   calculate(distance: number): Observable<StarshipResupplyStopResult> {
     return this.httpClient
-                  .get<StarshipResupplyStopResult>(`https://localhost:44394/api/resupply-stops?distance=${distance}`)
+                  .get<StarshipResupplyStopResult>(`http://localhost:8080/api/resupply-stops?distance=${distance}`)
                   .pipe(catchError(error => throwError(error)));
   }
 }
